@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JL0TXS0TGR"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-SAMPLE123');
+    </script>
+
+    <title>Security, Optimization, and Monitoring</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 40px; line-height: 1.8; color: #333; background-color: #f4f7f9; }
+        
+        /* Back to Home Design */
+        .nav-container { margin-bottom: 30px; }
+        .back-link { 
+            text-decoration: none; 
+            color: #555; 
+            font-size: 18px; 
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        .back-link:hover { color: #007bff; }
+
+        .section { 
+            margin-top: 30px; 
+            padding: 30px; 
+            border-radius: 15px; 
+            background-color: #ffffff; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08); 
+        }
+        
+        h1 { color: #2c3e50; font-size: 2.2em; margin-bottom: 40px; }
+        h2 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; margin-top: 0; }
+
+        .explanation { 
+            background-color: #f8f9fa; 
+            padding: 20px; 
+            border-left: none; 
+            margin: 20px 0; 
+            font-size: 0.95em;
+        }
+        
+        .security-input { 
+            width: 100%; 
+            max-width: 600px; 
+            padding: 12px; 
+            margin: 15px 0; 
+            border: 2px solid #ddd; 
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .btn-submit { 
+            padding: 12px 25px; 
+            background-color: #3498db; 
+            color: white; 
+            border: none; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-weight: bold;
+        }
+        .btn-submit:hover { background-color: #2980b9; }
+
+        /* Horizontal Image Alignment and Cropping Prevention */
+        .img-grid { 
+            display: flex; 
+            justify-content: space-between; 
+            gap: 20px; 
+            margin-top: 25px;
+            flex-wrap: wrap; 
+        }
+        
+        .img-item { 
+            flex: 1; 
+            min-width: 250px; 
+            text-align: center; 
+        }
+        
+        .img-item img { 
+            width: 100%; 
+            height: auto; /* Unlock the height to display the entire photo. */
+            aspect-ratio: 16 / 9; /* Maintain Aspect Ratio */
+            object-fit: contain; /* Ensure the entire photo fits inside the box without being cropped. */
+            background-color: #eee; /*Background color if there is remaining space */
+            border-radius: 12px; 
+            margin-bottom: 12px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        .img-caption { 
+            font-size: 0.85em; 
+            color: #666; 
+            font-weight: bold; 
+        }
+    </style>
+</head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JL0TXS0TGR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JL0TXS0TGR');
+</script>
+
+<body>
+    <div class="nav-container">
+        <a href="index.html" class="back-link">Back to Home</a>
+    </div>
+
+    <h1>Security, Optimization, and Monitoring</h1>
+
+    <div class="section">
+        <h2>1-1. Security Enhancement: XSS Attack Prevention</h2>
+        <div class="explanation">
+            <strong>Technical Detail:</strong> All user-provided data is treated as a potential threat. To prevent attackers from injecting <code>&lt;script&gt;</code> tags to steal session cookies or deface the page, I implemented a sanitization process using JavaScript's <code>replace</code> function. This converts special characters like &lt; and &gt; into HTML Entities (&amp;lt;, &amp;gt;), ensuring the browser interprets them as literal text rather than executable code. This is a fundamental defense mechanism following OWASP security guidelines.
+        </div>
+        <p>Test the security filter by typing: <code>&lt;script&gt;alert('Hacked')&lt;/script&gt;</code></p>
+        <input type="text" id="userContent" class="security-input" placeholder="Type text here to sanitize...">
+        <br>
+        <button class="btn-submit" onclick="sanitizeInput()">Submit Safely</button>
+        <p><strong>Sanitized Result:</strong> <span id="safeDisplay" style="color: #e74c3c; font-weight: bold;"></span></p>
+    </div>
+
+    <div class="section">
+        <h2>1-2. Session Security & CSRF Protection</h2>
+        <div class="explanation">
+            <strong>Technical Detail:</strong> To protect user sessions, I simulated the implementation of <strong>Secure & HTTP-only Cookies</strong> and <strong>CSRF Tokens</strong>. 
+            In a production environment, 'HTTP-only' prevents JavaScript from accessing cookies (defending against XSS cookie theft), and 'Secure' ensures cookies are only sent over encrypted HTTPS. 
+            Additionally, a unique <strong>CSRF Token</strong> is validated for every sensitive request to ensure the action is performed by the legitimate user, not a malicious third-party site.
+        </div>
+    
+        <div style="background: #2c3e50; color: #ecf0f1; padding: 15px; border-radius: 8px; font-family: monospace; font-size: 0.9em;">
+            // Simulation of Secure Cookie Header<br>
+            Set-Cookie: sessionID=abc123xyz; <strong>HttpOnly; Secure; SameSite=Strict</strong><br><br>
+            // Generated CSRF Token for this session<br>
+            <span id="csrf-token" style="color: #f1c40f;"></span>
+        </div>
+        <p style="font-size: 0.9em; color: #7f8c8d;">* This demonstrates how session data would be protected in a back-end integrated version of this site.</p>
+    </div>
+
+    <script>
+    // CSRF Token Generation Simulation Function
+    function generateCSRFToken() {
+        const token = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+        document.getElementById('csrf-token').innerText = "CSRF_TOKEN: " + token;
+    }
+    window.onload = generateCSRFToken;
+    </script>
+
+    <div class="section">
+        <h2>2. Performance Optimization: CDN & Lazy Loading</h2>
+        <div class="explanation">
+            <strong>Technical Detail:</strong> Website loading speed is critical for user experience and network efficiency. By using the <code>loading="lazy"</code> attribute, images outside the viewport are deferred from downloading, which minimizes initial <strong>Bandwidth</strong> consumption. Additionally, <strong>Cloudflare CDN</strong> is utilized to cache content across global edge servers. This ensures users receive data from the physically closest server, drastically reducing <strong>Latency</strong> and improving overall <strong>Throughput</strong>.
+        </div>
+        
+        <div class="img-grid">
+            <div class="img-item">
+                <img src="https://cdn.digitaltoday.co.kr/news/photo/202508/582699_543307_4742.jpg" loading="lazy" alt="Data Center">
+                <div class="img-caption">Image 1: Data Center (Infrastructure)</div>
+            </div>
+            <div class="img-item">
+                <img src="https://assets.rbl.ms/52552740/origin.jpg" loading="lazy" alt="Fiber Optics">
+                <div class="img-caption">Image 2: Fiber Optics (Bounded Media)</div>
+            </div>
+            <div class="img-item">
+                <img src="https://search.pstatic.net/sunny/?src=https%3A%2F%2Fus.123rf.com%2F450wm%2Framcreative%2Framcreative1406%2Framcreative140600021%2F28871024-%25EA%25B8%2580%25EB%25A1%259C%25EB%25B2%258C-%25EC%2597%25B0%25EA%25B2%25B0%25EC%2599%2580-%25EC%2584%25B8%25EA%25B3%2584%25EC%25A7%2580%25EB%258F%2584.jpg%3Fver%3D6&type=sc960_832" loading="lazy" alt="Network Map">
+                <div class="img-caption">Image 3: Global CDN Network</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>3. Network Monitoring: Google Analytics Integration</h2>
+        <div class="explanation">
+            <strong>Technical Detail:</strong> Visibility is key to network management. Integrating Google Analytics allows for real-time monitoring of traffic sources, locations, and device types. Beyond simple visitor counting, this serves as a primary security analysis tool to detect anomalies, such as sudden traffic spikes, which could indicate potential DDoS or bot attacks. Collected data enables evidence-based decisions for optimizing server resource allocation.
+        </div>
+        <p>Google Analytics is active, transmitting telemetry data to the dashboard.</p>
+    </div>
+
+    <script>
+        function sanitizeInput() {
+            const input = document.getElementById('userContent').value;
+            const sanitized = input.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            document.getElementById('safeDisplay').innerText = sanitized;
+            console.log("XSS Prevention active: Input sanitized.");
+        }
+    </script>
+</body>
+</html>
